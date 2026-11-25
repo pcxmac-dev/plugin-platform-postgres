@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plugin-platform-postgres"
+version = "0.1.0"  # the plugin's own release (CHANGELOG.md); the app shows it on the Plugins view
+description = "PostgreSQL for Liminal: databases on PostgreSQL servers that already run, connected, or made there with a role of their own."
+readme = "README.md"
+requires-python = ">=3.10"
+# the library it plugs into (the database kind and its instances: liminal_libs.storage.databases, plugin API 2.3; a
+# platform plugin of the Databases section since 1.90.0); its driver, pure Python, loaded only when a server is asked
+dependencies = ["liminal-libs>=1.90.0", "pg8000>=1.31"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.entry-points."liminal.providers"]
+postgres = "plugin_platform_postgres"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
